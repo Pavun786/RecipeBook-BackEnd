@@ -19,9 +19,9 @@ app.use(cors({
 }))
 
 app.use(express.json());
-app.use(cors());
 
-app.get("/",(req,res)=>{
+
+app.get("/",function(req,res){
   res.send("Hello Guys Please Welcome 💐🎉🎊")
 })
 
