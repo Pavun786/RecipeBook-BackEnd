@@ -14,8 +14,16 @@ const port = process.env.PORT;
 
 connectDB();
 
+app.use(cors({
+  orgin:"*"
+}))
+
 app.use(express.json());
 app.use(cors());
+
+app.get("/",(req,res)=>{
+  res.send("Hello Guys Please Welcome 💐🎉🎊")
+})
 
 app.use("/auth", userRouter);
 app.use("/recipes", recipesRouter);
