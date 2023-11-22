@@ -34,16 +34,16 @@ router.post("/", verifyToken, async (req, res) => {
    // const{name,ingredients,description,instructions,imageUrl,cookingTime,userOwner} = req.body;
         // console.log(name,ingredients,description,instructions,imageUrl,cookingTime,userOwner)
 
-    // try {
+     try {
         const recipe = new RecipeModel(req.body);
         
 
         const response = await recipe.save();
         console.log(response)
         res.json(response);
-//     } catch (error) {
-//         res.json(error);
-//     }
+    } catch (error) {
+         res.json(error);
+     }
 });
 
 
@@ -63,9 +63,11 @@ router.delete("/:recipeID", async (req, res) => {
     try {
        
         const recipe = await RecipeModel.findByIdAndDelete(req.params.recipeID);
-       
-        res.json("Item Deleted Successfully");
-        
+
+        const response = await RecipeModel.find({});
+
+        res.status(200).json(response)
+
     } catch (error) {
         console.error(error);
     }

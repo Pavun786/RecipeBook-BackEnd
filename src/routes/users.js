@@ -12,10 +12,10 @@ const router = express.Router();
 
 // New User register function
 router.post("/register", async(req, res) => {
-    const { username, password, displayName } = req.body;
+    const { email, password, displayName } = req.body;
 
     // Checking if the username already available
-    const user = await UserModel.findOne({username});
+    const user = await UserModel.findOne({email});
 
     if (user) {
         return res.json({ message: "User already exists!"});
@@ -24,7 +24,7 @@ router.post("/register", async(req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Adding the new user to the database
-    const newUser = new UserModel({ username, password: hashedPassword, displayName});
+    const newUser = new UserModel({ email, password: hashedPassword, displayName});
     await newUser.save();
 
     res.json({ message: "User registered sucessfully" });
@@ -33,10 +33,12 @@ router.post("/register", async(req, res) => {
 
 // User login function
 router.post("/login", async (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
     // Checking if the username already available
-    const user = await UserModel.findOne({username});
+    const user = await UserModel.findOne({email});
+
+    console.log(user)
 
     if (!user) {
         return res.status(404).json({ message: "User doesn't exist!"});
@@ -45,11 +47,11 @@ router.post("/login", async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if(!isPasswordValid) {
-        return res.status(401).json({ message: "Username or Password is Incorrect"});
+        return res.status(401).json({ message: "Email or Password is Incorrect"});
     }
     //Creating a token
     const token = jwt.sign({ id: user._id }, TOKEN_KEY);
-    res.status(200).json({ token, userID: user._id});
+    res.status(200).json({ token, userID: user._id, Uname:user.displayName});
 });
 
 
