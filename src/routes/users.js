@@ -14,6 +14,7 @@ const router = express.Router();
 router.post("/register", async(req, res) => {
     const { email, password, displayName } = req.body;
 
+    console.log(email,password,displayName)
     // Checking if the username already available
     const user = await UserModel.findOne({email});
 

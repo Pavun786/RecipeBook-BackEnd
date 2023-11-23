@@ -8,15 +8,18 @@ dotenv.config();
 import { userRouter } from './src/routes/users.js';
 import { recipesRouter } from './src/routes/recipes.js';
 
+
 const app = express();
 
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 
 connectDB();
 
 app.use(cors({
   orgin:"*"
 }))
+
+
 
 app.use(express.json());
 

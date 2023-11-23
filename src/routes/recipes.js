@@ -8,6 +8,7 @@ const router = express.Router();
 
 // To get all the recipes
 router.get("/", async (req, res) => {
+    console.log("called ")
     try {
         const response = await RecipeModel.find({});
         res.json(response);
