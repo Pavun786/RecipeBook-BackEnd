@@ -16,7 +16,7 @@ const port = process.env.PORT || 5000;
 connectDB();
 
 app.use(cors({
-  orgin:"*"
+  orgin:"https://aesthetic-baklava-656fc5.netlify.app"
 }))
 
 
